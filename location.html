@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lokasi Qiara Florist</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f7faf7;
+}
+
+.header{
+    background:#163427;
+    color:white;
+    text-align:center;
+    padding:60px 20px;
+}
+
+.header h1{
+    font-size:48px;
+}
+
+.container{
+    width:90%;
+    max-width:1300px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    margin-top:-40px;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+#map{
+    width:100%;
+    height:700px;
+    border-radius:20px;
+    margin-top:20px;
+}
+
+.info{
+    margin-bottom:20px;
+}
+
+.info h2{
+    color:#163427;
+}
+
+.distance{
+    color:#4CAF50;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.controls{
+    margin-top:20px;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:none;
+    cursor:pointer;
+    padding:15px 25px;
+    border-radius:50px;
+    color:white;
+    font-weight:600;
+}
+
+.btn-nav{
+    background:#4CAF50;
+}
+
+.btn-wa{
+    background:#25D366;
+    text-decoration:none;
+}
+
+.btn-home{
+    background:#163427;
+    text-decoration:none;
+}
+
+footer{
+    text-align:center;
+    background:#163427;
+    color:white;
+    padding:50px 20px;
+    margin-top:60px;
+}
+
+@media(max-width:768px){
+
+    #map{
+        height:500px;
+    }
+
+    .header h1{
+        font-size:34px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<section class="header">
+
+    <h1>📍 Lokasi Qiara Florist</h1>
+
+    <p>
+        Navigasi langsung ke toko kami
+    </p>
+
+</section>
+
+<div class="container">
+
+<div class="card">
+
+    <div class="info">
+
+        <h2>Qiara Florist</h2>
+
+        <p>
+            Nendali, Kabupaten Jayapura, Papua
+        </p>
+
+        <div class="distance" id="distance">
+            Mengambil lokasi...
+        </div>
+
+    </div>
+
+    <div class="controls">
+
+        <button class="btn btn-nav"
+                onclick="startNavigation()">
+            🧭 Mulai Navigasi
+        </button>
+
+        <a href="https://wa.me/6281224452338"
+           target="_blank"
+           class="btn btn-wa">
+            💬 Chat Admin
+        </a>
+
+        <a href="index.html"
+           class="btn btn-home">
+            ← Kembali
+        </a>
+
+    </div>
+
+    <div id="map"></div>
+
+</div>
+
+</div>
+
+<footer>
+
+    <h2>Qiara Florist</h2>
+
+    <p>Bring Nature Into Your Dream Home</p>
+
+</footer>
+
+<script>
+
+let map;
+let userMarker;
+let storeMarker;
+let directionsService;
+let directionsRenderer;
+
+const STORE = {
+
+    lat: -2.5650,
+    lng: 140.5140
+
+};
+
+function initMap(){
+
+    map = new google.maps.Map(
+        document.getElementById("map"),
+        {
+            zoom:15,
+            center:STORE,
+            mapTypeId:"roadmap"
+        }
+    );
+
+    storeMarker =
+    new google.maps.Marker({
+
+        position:STORE,
+
+        map:map,
+
+        title:"Qiara Florist"
+
+    });
+
+    directionsService =
+    new google.maps.DirectionsService();
+
+    directionsRenderer =
+    new google.maps.DirectionsRenderer({
+
+        suppressMarkers:false,
+
+        polylineOptions:{
+            strokeColor:"#4CAF50",
+            strokeWeight:6
+        }
+
+    });
+
+    directionsRenderer.setMap(map);
+
+}
+
+function startNavigation(){
+
+navigator.geolocation.watchPosition(
+
+(position)=>{
+
+    const current = {
+
+        lat:position.coords.latitude,
+
+        lng:position.coords.longitude
+
+    };
+
+    if(!userMarker){
+
+        userMarker =
+        new google.maps.Marker({
+
+            position:current,
+
+            map:map,
+
+            icon:{
+                path:google.maps.SymbolPath.CIRCLE,
+                scale:10,
+                fillColor:"#2196f3",
+                fillOpacity:1,
+                strokeColor:"#ffffff",
+                strokeWeight:3
+            }
+
+        });
+
+    }else{
+
+        userMarker.setPosition(current);
+
+    }
+
+    const distance =
+    google.maps.geometry.spherical.computeDistanceBetween(
+
+        new google.maps.LatLng(
+            current.lat,
+            current.lng
+        ),
+
+        new google.maps.LatLng(
+            STORE.lat,
+            STORE.lng
+        )
+
+    );
+
+    document.getElementById(
+        "distance"
+    ).innerHTML =
+
+    "📍 Jarak ke toko: " +
+
+    (distance/1000).toFixed(2)
+
+    +
+
+    " km";
+
+    directionsService.route({
+
+        origin:current,
+
+        destination:STORE,
+
+        travelMode:"DRIVING"
+
+    },
+
+    (result,status)=>{
+
+        if(status==="OK"){
+
+            directionsRenderer.setDirections(
+                result
+            );
+
+        }
+
+    });
+
+},
+
+(error)=>{
+
+    alert(
+        "Izinkan akses lokasi terlebih dahulu."
+    );
+
+},
+
+{
+    enableHighAccuracy:true,
+    maximumAge:0
+}
+
+);
+
+}
+
+</script>
+
+<script async
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=geometry&callback=initMap">
+</script>
+
+</body>
+</html>
