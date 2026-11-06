@@ -248,7 +248,7 @@ ABOUT
 }
 
 .about img{
-    width:100%;
+    width:70%;
     border-radius:25px;
 }
 
@@ -735,4 +735,29 @@ WHATSAPP FLOATING
     100%{
         box-shadow:0 0 0 0 rgba(37,211,102,0);
     }
+}
+
+.owner-quote{
+    margin-top:30px;
+    padding:25px;
+    background:#f7faf7;
+    border-left:4px solid #4CAF50;
+    border-radius:15px;
+}
+
+.owner-quote p{
+    font-style:italic;
+    color:#444;
+    margin-bottom:15px;
+}
+
+.owner-quote h4{
+    color:#163427;
+    font-size:18px;
+    margin-bottom:3px;
+}
+
+.owner-quote span{
+    color:#777;
+    font-size:14px;
 }
