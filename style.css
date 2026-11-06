@@ -347,7 +347,7 @@ GALLERY
 =========================== */
 
 .gallery-grid{
-    columns:4;
+    columns:3;
     gap:15px;
 }
 
