@@ -572,3 +572,167 @@ RESPONSIVE
     color:var(--primary);
 }
 }
+
+/* ====================================
+WHATSAPP FLOATING
+==================================== */
+
+.whatsapp-widget{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    z-index:99999;
+}
+
+.wa-button{
+    width:70px;
+    height:70px;
+    border:none;
+    border-radius:50%;
+    background:#25D366;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.3s;
+}
+
+.wa-button:hover{
+    transform:scale(1.08);
+}
+
+.wa-box{
+    position:absolute;
+    right:0;
+    bottom:90px;
+    width:330px;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    display:none;
+}
+
+.wa-box.active{
+    display:block;
+    animation:waShow .3s ease;
+}
+
+@keyframes waShow{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.wa-header{
+    padding:20px;
+    background:#25D366;
+    color:white;
+}
+
+.wa-header h3{
+    margin-bottom:6px;
+    font-size:18px;
+}
+
+.wa-header p{
+    font-size:14px;
+}
+
+.wa-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:18px 20px;
+    color:#333;
+    transition:.3s;
+    border-bottom:1px solid #eee;
+}
+
+.wa-item:hover{
+    background:#f8f8f8;
+}
+
+.wa-avatar{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#25D366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.wa-item strong{
+    display:block;
+}
+
+.wa-item span{
+    font-size:13px;
+    color:#777;
+}
+
+@media(max-width:768px){
+
+    .wa-box{
+        width:300px;
+    }
+
+    .wa-button{
+        width:65px;
+        height:65px;
+    }
+
+}
+
+.wa-button{
+    width:70px;
+    height:70px;
+    border:none;
+    border-radius:50%;
+    background:#25D366;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:.3s;
+}
+
+.wa-button i{
+    color:white;
+    font-size:20px;
+}
+
+.wa-button:hover{
+    transform:scale(1.08);
+}
+
+.wa-button{
+    animation:pulseWhatsapp 2s infinite;
+}
+
+@keyframes pulseWhatsapp{
+
+    0%{
+        box-shadow:0 0 0 0 rgba(37,211,102,.7);
+    }
+
+    70%{
+        box-shadow:0 0 0 20px rgba(37,211,102,0);
+    }
+
+    100%{
+        box-shadow:0 0 0 0 rgba(37,211,102,0);
+    }
+}

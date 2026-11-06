@@ -29,4 +29,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+
+
+    //Button Wa
+    const waButton = document.getElementById("waButton");
+const waBox = document.getElementById("waBox");
+
+if (waButton && waBox) {
+
+    waButton.addEventListener("click", () => {
+        waBox.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+
+        if (
+            !waBox.contains(e.target) &&
+            !waButton.contains(e.target)
+        ) {
+            waBox.classList.remove("active");
+        }
+
+    });
+
+}
+
 });
+
+
