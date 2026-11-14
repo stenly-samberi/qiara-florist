@@ -106,41 +106,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    if (checkoutWA) {
+ if (checkoutWA) {
 
-        checkoutWA.addEventListener("click", () => {
+    checkoutWA.addEventListener("click", () => {
 
-            if (cart.length === 0) {
+        if (cart.length === 0) {
+            alert("Pilih produk terlebih dahulu");
+            return;
+        }
 
-                alert("Pilih produk terlebih dahulu");
+        navigator.geolocation.getCurrentPosition(
 
-                return;
-            }
+            function(position) {
 
-            let total = 0;
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
 
-            let message =
-                "Halo Qiara Florist,%0A%0ASaya ingin memesan:%0A%0A";
+                let message =
+                    "Halo Qiara Florist,%0A%0ASaya ingin memesan:%0A%0A";
 
-            cart.forEach((item, index) => {
+                cart.forEach((item, index) => {
 
-                total += item.price;
+                    message +=
+                        `${index + 1}. ${item.name}%0A`;
+
+                });
 
                 message +=
-                    `${index + 1}. ${item.name} - Rp ${item.price.toLocaleString("id-ID")}%0A`;
+                    `%0ATolong antar ke lokasi saya:%0A`;
 
-            });
+                message +=
+                    `https://maps.google.com/?q=${lat},${lng}`;
 
-            message +=
-                `%0ATotal: Rp ${total.toLocaleString("id-ID")}`;
+                const url =
+                    `https://wa.me/6282198285990?text=${message}`;
 
-            const url =
-                `https://wa.me/6282198285990?text=${message}`;
+                window.open(url, "_blank");
+            },
 
-            window.open(url, "_blank");
+            function() {
 
-        });
+                alert(
+                    "Mohon izinkan akses lokasi agar kami dapat mengetahui alamat pengiriman."
+                );
 
-    }
+            }
+
+        );
+
+    });
+
+}
 
 });
