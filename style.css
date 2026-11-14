@@ -765,3 +765,104 @@ WHATSAPP FLOATING
     color:#777;
     font-size:14px;
 }
+
+/* keranjang */
+.add-cart{
+    width:100%;
+    margin-top:12px;
+    padding:10px;
+    border:none;
+    background:#4CAF50;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.add-cart:hover{
+    background:#388e3c;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid #eee;
+}
+
+.cart-summary{
+    margin-top:40px;
+    background:#fff;
+    padding:20px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.cart-summary span{
+    font-size:18px;
+    font-weight:600;
+}
+
+#checkoutWA{
+    background:#25D366;
+    color:#fff;
+    border:none;
+    padding:14px 24px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+#checkoutWA:hover{
+    background:#1fa855;
+}
+.checkout-btn{
+    width:100%;
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:12px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.checkout-btn:hover{
+    background:#1fb85a;
+}
+
+@media(max-width:768px){
+
+    .cart-summary{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    #checkoutWA{
+        width:100%;
+    }
+
+}
+
+.price{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+    color:#4CAF50;
+    font-weight:700;
+    font-size:24px;
+}
+
+.price span{
+    font-size:12px;
+    font-weight:500;
+    color:#777;
+    margin-bottom:4px;
+}
+
+
