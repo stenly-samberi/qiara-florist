@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
- if (checkoutWA) {
+    if (checkoutWA) {
 
     checkoutWA.addEventListener("click", () => {
 
@@ -117,23 +117,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
         navigator.geolocation.getCurrentPosition(
 
-            function(position) {
+            function (position) {
 
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
 
+                let total = 0;
+
                 let message =
-                    "Halo Qiara Florist,%0A%0ASaya ingin memesan:%0A%0A";
+                    "Halo Qiara Florist,%0A%0A" +
+                    "Saya ingin memesan:%0A%0A";
 
                 cart.forEach((item, index) => {
 
+                    total += item.price;
+
                     message +=
-                        `${index + 1}. ${item.name}%0A`;
+                        `${index + 1}. ${item.name} - Rp ${item.price.toLocaleString("id-ID")}%0A`;
 
                 });
 
+                message += "%0A";
+                message += "====================%0A";
+                message += `💰 Total Belanja : Rp ${total.toLocaleString("id-ID")}%0A`;
+                message += "====================%0A%0A";
+
                 message +=
-                    `%0ATolong antar ke lokasi saya:%0A`;
+                    "📍 Tolong antar ke lokasi saya:%0A";
 
                 message +=
                     `https://maps.google.com/?q=${lat},${lng}`;
@@ -142,9 +152,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     `https://wa.me/6282198285990?text=${message}`;
 
                 window.open(url, "_blank");
+
             },
 
-            function() {
+            function () {
 
                 alert(
                     "Mohon izinkan akses lokasi agar kami dapat mengetahui alamat pengiriman."
